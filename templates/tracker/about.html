@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}About me{% endblock %}
+
+{% block content %}
+<section class="showcase">
+  <div class="container-fluid p-0  about-me">
+    <div class="row no-gutters">
+      <div class="col-lg-6 text-white showcase-img" style="background-image: url('{% static 'tracker/img/my-profile-picture.jpg' %}');"></div>
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>About me</h2>
+        <p class="lead mb-0">Hi! I study Informatics at University of Warsaw.<br /> I'm keen on web app development as well as on security. In case you want to contact me feel free to write at <b>mateusz@sieniawski.net</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
