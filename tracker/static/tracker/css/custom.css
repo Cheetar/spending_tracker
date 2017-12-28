@@ -2,3 +2,16 @@
   float: none;
   margin: 0 auto;
 }
+
+.registration-container div{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #f0effc;
+  padding: 10px;
+  text-align: center;
+}
+
+.registration-form div{
+  float: none;
+  margin: 0 auto;
+}

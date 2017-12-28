@@ -1,9 +1,8 @@
-{% extends 'main/base.html' %}
+{% extends 'main/registration_base.html' %}
 
 {% block title %}Login{% endblock %}
 
-{% block content %}
-  <h1>Login</h1>
+{% block registration-content %}
   {% if form.errors %}
     <p>Username or password invalid. Please try again.</p>
   {% endif %}

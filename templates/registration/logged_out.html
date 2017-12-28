@@ -1,8 +1,7 @@
-{% extends 'main/base.html' %}
+{% extends 'main/registration_base.html' %}
 
 {% block title %}Logged out{% endblock %}
 
-{% block content %}
-  <h1>Logged out</h1>
+{% block registration-content %}
   <p>You've been successfully logged out. Here can <a href="{% url 'login' %}">log in</a> again.</p>
 {% endblock %}

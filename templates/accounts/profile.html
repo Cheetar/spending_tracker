@@ -1,9 +1,8 @@
-{% extends 'main/base.html' %}
+{% extends 'main/registration_base.html' %}
 
 {% block title %}Profile{% endblock %}
 
-{% block content %}
-  <h1>Profile</h1>
+{% block registration-content %}
   <p>Welcome in users panel.</p>
   <p><a href="{% url 'password_change' %}">Change password</a></p>
 {% endblock %}
