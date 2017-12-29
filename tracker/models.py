@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.db import models
 
@@ -33,4 +35,5 @@ class Spending(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
     name = models.CharField(max_length=150)
     cost = MoneyField(decimal_places=2, default_currency='PLN', max_digits=11)
+    date = models.DateField(default=datetime.now())
     is_income = models.BooleanField(default=False)
