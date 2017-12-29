@@ -14,6 +14,7 @@ class Profile(models.Model):
 class Board(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.PROTECT)
     name = models.CharField(max_length=150)
+    datetime_created = models.DateTimeField(auto_now_add=True)
     # add currency field
 
     def __str__(self):
