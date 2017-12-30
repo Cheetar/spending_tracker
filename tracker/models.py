@@ -25,6 +25,9 @@ class Board(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['-datetime_created']
+
 
 class Category(models.Model):
     board = models.ForeignKey(Board, on_delete=models.PROTECT)
