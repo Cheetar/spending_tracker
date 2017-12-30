@@ -17,7 +17,7 @@ def dashboard(request):
 def board(request, id):
     board = get_object_or_404(Board, id=id)
     spendings = board.spendings
-    return render(request, 'analyser/board.html', {'spendings': spendings})
+    return render(request, 'analyser/board.html', {'spendings': spendings, 'board': board})
 
 
 @login_required
