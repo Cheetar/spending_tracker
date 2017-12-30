@@ -7,7 +7,7 @@ from .forms import UserRegistrationForm
 @login_required
 def profile(request):
     return render(request,
-                  'accounts/profile.html')
+                  'tracker/profile.html')
 
 
 def register(request):
@@ -19,10 +19,10 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             return render(request,
-                          'accounts/register_done.html',
+                          'registration/register_done.html',
                           {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
     return render(request,
-                  'accounts/register.html',
+                  'registration/register.html',
                   {'user_form': user_form})
