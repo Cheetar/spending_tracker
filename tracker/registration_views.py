@@ -1,7 +1,9 @@
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .forms import UserRegistrationForm
+from .models import Board, Profile
 
 
 @login_required
@@ -18,11 +20,19 @@ def register(request):
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
-            return render(request,
-                          'registration/register_done.html',
-                          {'new_user': new_user})
-    else:
-        user_form = UserRegistrationForm()
+
+            # Create profile object and default Board
+            profile = Profile(user=new_user)
+            profile.save()
+            board = Board(owner=profile)
+            board.save()
+
+            # log in user
+            login(request, new_user)
+
+            return redirect('dashboard')
+
+    user_form = UserRegistrationForm()
     return render(request,
                   'registration/register.html',
                   {'user_form': user_form})

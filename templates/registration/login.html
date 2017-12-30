@@ -1,5 +1,7 @@
 {% extends 'main/registration_base.html' %}
 
+{% load bootstrap %}
+
 {% block title %}Login{% endblock %}
 
 {% block registration-content %}
@@ -8,7 +10,7 @@
   {% endif %}
   <div class="login-form">
     <form action="{% url 'login' %}" method="post">
-      {{ form.as_p }}
+      {{ form|bootstrap }}
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ next }}" />
       <p><input type="submit" value="Login" /></p>

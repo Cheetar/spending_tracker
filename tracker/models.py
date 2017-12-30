@@ -7,6 +7,12 @@ from djmoney.models.fields import MoneyField
 class Profile(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    @classmethod
+    def create(user):
+        profile = Profile(user=user)
+        profile.save
+        return profile
+
     def __str__(self):
         return str(self.user)
 
@@ -14,9 +20,15 @@ class Profile(models.Model):
 class Board(models.Model):
     id = models.AutoField(primary_key=True)
     owner = models.ForeignKey(Profile, on_delete=models.PROTECT)
-    name = models.CharField(max_length=150, unique=True)
+    name = models.CharField(max_length=150, default="Main board")
     datetime_created = models.DateTimeField(auto_now_add=True)
     # add currency field
+
+    @classmethod
+    def create(profile):
+        board = Board(owner=profile)
+        board.save()
+        return board
 
     @property
     def spendings(self):
@@ -27,6 +39,7 @@ class Board(models.Model):
 
     class Meta:
         ordering = ['-datetime_created']
+        unique_together = ("owner", "name")
 
 
 class Category(models.Model):
