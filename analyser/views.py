@@ -34,8 +34,6 @@ def dashboard(request):
 def board(request, id):
     board = get_object_or_404(Board, id=id)
     spendings = board.spendings
-    owner = board.owner
-    all_boards = Board.objects.all().filter(owner=owner)
     board_form = BoardForm()
     if request.method == "POST":
         spending_form = SpendingForm(request.POST)
@@ -47,7 +45,6 @@ def board(request, id):
             return render(request, 'analyser/board.html', {'spendings': spendings,
                                                            'board': board,
                                                            'spending_form': spending_form,
-                                                           'all_boards': all_boards,
                                                            'board_form': board_form})
     else:
         spending_form = SpendingForm()
@@ -55,13 +52,22 @@ def board(request, id):
     return render(request, 'analyser/board.html', {'spendings': spendings,
                                                    'board': board,
                                                    'spending_form': spending_form,
-                                                   'all_boards': all_boards,
                                                    'board_form': board_form})
 
 
 @login_required
 def create_board(request):
-    return render(request, 'analyser/create_board.html')
+    if request.method == "POST":
+        board_form = BoardForm(request.POST)
+        if board_form.is_valid():
+            # New speding object is created but not saved into database
+            new_board = board_form.save(commit=False)
+            new_board.owner = Profile.objects.all().get(user=request.user)
+            new_board.save()
+            return redirect('dashboard')
+
+    board_form = BoardForm()
+    return render(request, 'analyser/create_board.html', {'board_form': board_form})
 
 
 @login_required

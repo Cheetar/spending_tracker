@@ -1,186 +1,107 @@
+{% extends 'analyser/base.html' %}
 {% load static %}
 {% load bootstrap %}
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
-    <title>Dashboard Template for Bootstrap</title>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'analyser/css/dashboard.css' %}" rel="stylesheet">
-    <link href="{% static 'analyser/css/custom.css' %}" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{% url 'dashboard' %}">Spending Tracker</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <a href="#" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dashboards <span class="glyphicon glyphicon-menu-down"></a>
-                  <div class="dropdown-menu dropdown-board" aria-labelledby="dropdownMenuButton">
-                    {% for board in all_boards %}
-                    <div class="dropdown-board-item">
-                      <a class="dropdown-item" href="{% url 'board' board.id %}">
-                        <div class="board-name">
-                          <span>{{board.name}}</span>
-                        </div>
-                      </a>
-                    </div>
-                    {% endfor %}
-                    <div class="create-new-board">
-                      <a class="btn btn-success" href="#">Create new board</a>
-                    </div>
-                  </div>
-              </li>
-            <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="{% url 'board' board.id %}"><span class="glyphicon glyphicon-home"></span> Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="#" data-toggle="modal" data-target="#spendingModal"><span class="glyphicon glyphicon-plus"></span> <b>Add spending</b></a></li>
-            <li><a href="{% url 'export' board.id %}"><span class="glyphicon glyphicon-file"></span> Export</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">{{board.name}}</h1>
-
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
-
-          <!-- Spending modal -->
-          <div class="modal fade" id="spendingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="exampleModalLabel">Add spending</h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <form action='.' method='post'>
-                  {% csrf_token %}
-                  <div class="modal-body">
-                    {{ spending_form|bootstrap }}
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-
-          <h2 class="sub-header">Spendings</h2>
-          {% if spendings %}
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Cost</th>
-                  <th>Category</th>
-                  <th>Sub Category</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for spending in spendings %}
-                  <tr {% if spending.is_income %} class="success" {% endif %} >
-                    <td>{{spending.name}}</td>
-                    <td>{{spending.cost}}</td>
-                    <td>{{spending.category}}</td>
-                    {% if spending.sub_category is None %}
-                      <td>---</td>
-                    {% else %}
-                      <td>{{spending.sub_category}}</td>
-                    {% endif %}
-                    <td>{{spending.date}}</td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-          {% else %}
-          <p>You haven't registered any spendings</p>
-          {% endif %}
-        </div>
-      </div>
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="{% url 'board' board.id %}"><span class="glyphicon glyphicon-home"></span> Overview <span class="sr-only">(current)</span></a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="#" data-toggle="modal" data-target="#spendingModal"><span class="glyphicon glyphicon-plus"></span> <b>Add spending</b></a></li>
+        <li><a href="{% url 'export' board.id %}"><span class="glyphicon glyphicon-file"></span> Export</a></li>
+      </ul>
     </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h1 class="page-header">{{board.name}}</h1>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </body>
-</html>
+      <div class="row placeholders">
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4>Label</h4>
+          <span class="text-muted">Something else</span>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4>Label</h4>
+          <span class="text-muted">Something else</span>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4>Label</h4>
+          <span class="text-muted">Something else</span>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4>Label</h4>
+          <span class="text-muted">Something else</span>
+        </div>
+      </div>
+
+      <!-- Spending modal -->
+      <div class="modal fade" id="spendingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel">Add spending</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action='.' method='post'>
+              {% csrf_token %}
+              <div class="modal-body">
+                {{ spending_form|bootstrap }}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <h2 class="sub-header">Spendings</h2>
+      {% if spendings %}
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Cost</th>
+              <th>Category</th>
+              <th>Sub Category</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for spending in spendings %}
+              <tr {% if spending.is_income %} class="success" {% endif %} >
+                <td>{{spending.name}}</td>
+                <td>{{spending.cost}}</td>
+                <td>{{spending.category}}</td>
+                {% if spending.sub_category is None %}
+                  <td>---</td>
+                {% else %}
+                  <td>{{spending.sub_category}}</td>
+                {% endif %}
+                <td>{{spending.date}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p>You haven't registered any spendings</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

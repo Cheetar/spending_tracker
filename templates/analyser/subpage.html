@@ -1,0 +1,15 @@
+{% extends 'analyser/base.html' %}
+
+{% block content %}
+  <br/>
+  <div class="row">
+    <div class="col-md-4 col-md-push-4">
+      <div class="subpage-content">
+        <h1>{% block title %}{% endblock %}</h1>
+        <hr />
+        {% block subpage_content%}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -28,7 +28,7 @@
   text-decoration: none;
 }
 
-.board-name{
+.board-name{#c4c4c4;
   width: 100%;
   padding: 7px;
   padding-left: 10px;
@@ -40,4 +40,11 @@
   margin-top: 10px;
   margin-bottom: 5px;
   text-align: center;
+}
+
+.subpage-content {
+  text-align: center;
+  background-color: #d6d4d4;
+  padding: 20px;
+  border-radius: 10px;
 }

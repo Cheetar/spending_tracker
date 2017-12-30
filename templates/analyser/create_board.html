@@ -1,3 +1,14 @@
-<p>
-  create_board.html template
-</p>
+{% extends 'analyser/subpage.html' %}
+
+{% load bootstrap %}
+
+{% block title %}Create board{% endblock %}
+
+{% block subpage_content %}
+<form action='.' method="POST">
+  {% csrf_token %}
+  {{board_form|bootstrap }}
+  <button class='btn btn-submit' type='submit'>Create</button>
+</form>
+
+{% endblock %}
