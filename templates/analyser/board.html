@@ -76,7 +76,6 @@
               <th>Name</th>
               <th>Cost</th>
               <th>Category</th>
-              <th>Sub Category</th>
               <th>Date</th>
             </tr>
           </thead>
@@ -86,11 +85,6 @@
                 <td>{{spending.name}}</td>
                 <td>{{spending.cost}}</td>
                 <td>{{spending.category}}</td>
-                {% if spending.sub_category is None %}
-                  <td>---</td>
-                {% else %}
-                  <td>{{spending.sub_category}}</td>
-                {% endif %}
                 <td>{{spending.date}}</td>
               </tr>
             {% endfor %}

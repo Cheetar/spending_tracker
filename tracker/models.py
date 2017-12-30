@@ -54,23 +54,9 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 
-class SubCategory(models.Model):
-    board = models.ForeignKey(Board, on_delete=models.PROTECT)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    name = models.CharField(max_length=150)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Sub Category'
-        verbose_name_plural = 'Sub Categories'
-
-
 class Spending(models.Model):
     board = models.ForeignKey(Board, on_delete=models.PROTECT)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    sub_category = models.ForeignKey(SubCategory, on_delete=models.PROTECT, blank=True, null=True)
     name = models.CharField(max_length=150)
     cost = MoneyField(decimal_places=2, default_currency='PLN', max_digits=11)
     date = models.DateField(auto_now_add=True)

@@ -7,7 +7,7 @@ class SpendingForm(forms.ModelForm):
 
     class Meta:
         model = Spending
-        fields = ('name', 'cost', 'category', 'sub_category', 'is_income')
+        fields = ('name', 'cost', 'category', 'is_income')
 
 
 class BoardForm(forms.ModelForm):
