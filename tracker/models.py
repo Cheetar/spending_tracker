@@ -18,6 +18,10 @@ class Board(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
     # add currency field
 
+    @property
+    def spendings(self):
+        return Spending.objects.all().filter(board=self)
+
     def __str__(self):
         return self.name
 
