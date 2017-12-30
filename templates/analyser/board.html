@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,9 +48,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="#">Dashboards</a></li>
+            <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
             <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
           </ul>
           <form class="navbar-form navbar-right">
@@ -63,22 +63,13 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="{% url 'export' board.id %}">Export</a></li>
+            <li class="active"><a href="{% url 'board' board.id %}"><span class="glyphicon glyphicon-home"></span> Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#spendingModal"><span class="glyphicon glyphicon-plus"></span> <b>Add spending</b></a></li>
+            <li><a href="{% url 'export' board.id %}"><span class="glyphicon glyphicon-file"></span> Export</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -107,6 +98,31 @@
             </div>
           </div>
 
+          <!-- Spending modal -->
+          <div class="modal fade" id="spendingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">Add spending</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action='.' method='post'>
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    {{ spending_form|bootstrap }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
           <h2 class="sub-header">Spendings</h2>
           {% if spendings %}
           <div class="table-responsive">
@@ -122,7 +138,7 @@
               </thead>
               <tbody>
                 {% for spending in spendings %}
-                  <tr>
+                  <tr {% if spending.is_income %} class="success" {% endif %} >
                     <td>{{spending.name}}</td>
                     <td>{{spending.cost}}</td>
                     <td>{{spending.category}}</td>

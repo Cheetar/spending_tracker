@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from tracker.models import Board, Profile
 
 from .export import export_spendings_to_excel
+from .forms import SpendingForm
 
 
 def download(path):
@@ -33,7 +34,21 @@ def dashboard(request):
 def board(request, id):
     board = get_object_or_404(Board, id=id)
     spendings = board.spendings
-    return render(request, 'analyser/board.html', {'spendings': spendings, 'board': board})
+    if request.method == "POST":
+        spending_form = SpendingForm(request.POST)
+        if spending_form.is_valid():
+            # New speding object is created but not saved into database
+            new_spending = spending_form.save(commit=False)
+            new_spending.board = board
+            new_spending.save()
+            return render(request, 'analyser/board.html', {'spendings': spendings,
+                                                           'board': board,
+                                                           'spending_form': spending_form})
+
+    spending_form = SpendingForm()
+    return render(request, 'analyser/board.html', {'spendings': spendings,
+                                                   'board': board,
+                                                   'spending_form': spending_form})
 
 
 @login_required
