@@ -1,6 +1,6 @@
 from django import forms
 
-from tracker.models import Spending
+from tracker.models import Board, Spending
 
 
 class SpendingForm(forms.ModelForm):
@@ -8,3 +8,10 @@ class SpendingForm(forms.ModelForm):
     class Meta:
         model = Spending
         fields = ('name', 'cost', 'category', 'sub_category', 'is_income')
+
+
+class BoardForm(forms.ModelForm):
+
+    class Meta:
+        model = Board
+        fields = ('name',)
