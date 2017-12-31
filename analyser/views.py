@@ -33,6 +33,10 @@ def dashboard(request):
 @login_required
 def board(request, id):
     board = get_object_or_404(Board, id=id)
+    profile = Profile.objects.get(user=request.user)
+    if profile is not board.owner:
+        return redirect('dashboard')
+
     spendings = board.spendings
     board_form = BoardForm()
     if request.method == "POST":
@@ -46,9 +50,8 @@ def board(request, id):
                                                            'board': board,
                                                            'spending_form': spending_form,
                                                            'board_form': board_form})
-    else:
-        spending_form = SpendingForm()
 
+    spending_form = SpendingForm()
     return render(request, 'analyser/board.html', {'spendings': spendings,
                                                    'board': board,
                                                    'spending_form': spending_form,
