@@ -3,6 +3,18 @@ from django.db import models
 
 from djmoney.models.fields import MoneyField
 
+CATEGORIES = (('Home', 'Home'),
+              ('Groceries', 'Groceries'),
+              ('Food', 'Food'),
+              ('Gifts', 'Gifts'),
+              ('Kids', 'Kids'),
+              ('Fuel', 'Fuel'),
+              ('Transport', 'Transport'),
+              ('Eating out', 'Eating out'),
+              ('Other', 'Other'),
+              # Income CATEGORIES
+              ('Salary', 'Salary'))
+
 
 class Profile(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -42,21 +54,9 @@ class Board(models.Model):
         unique_together = ("owner", "name")
 
 
-class Category(models.Model):
-    board = models.ForeignKey(Board, on_delete=models.PROTECT)
-    name = models.CharField(max_length=150)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
-
-
 class Spending(models.Model):
     board = models.ForeignKey(Board, on_delete=models.PROTECT)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.CharField(max_length=50, choices=CATEGORIES)
     name = models.CharField(max_length=150)
     cost = MoneyField(decimal_places=2, default_currency='PLN', max_digits=11)
     date = models.DateField(auto_now_add=True)

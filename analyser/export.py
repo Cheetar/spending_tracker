@@ -19,8 +19,7 @@ def export_spendings_to_excel(board):
     ws.write(0, 0, 'Spending')
     ws.write(0, 1, 'Cost')
     ws.write(0, 2, 'Category')
-    ws.write(0, 3, 'Sub Category')
-    ws.write(0, 4, 'Date')
+    ws.write(0, 3, 'Date')
 
     spendings = board.spendings
     for i in range(len(spendings)):
@@ -28,8 +27,7 @@ def export_spendings_to_excel(board):
         ws.write(i + 1, 0, str(spending.name), styles[int(spending.is_income)])
         ws.write(i + 1, 1, str(spending.cost), styles[int(spending.is_income)])
         ws.write(i + 1, 2, str(spending.category), styles[int(spending.is_income)])
-        ws.write(i + 1, 3, str(spending.sub_category), styles[int(spending.is_income)])
-        ws.write(i + 1, 4, str(spending.date), styles[int(spending.is_income)])
+        ws.write(i + 1, 3, str(spending.date), styles[int(spending.is_income)])
 
     directory = settings.BASE_DIR + '/media/exports/'
     if not os.path.exists(directory):
