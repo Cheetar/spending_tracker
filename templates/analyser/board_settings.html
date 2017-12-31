@@ -1,0 +1,15 @@
+{% extends 'analyser/subpage.html' %}
+
+{% load bootstrap %}
+
+{% block title %}{{board.name}}- settings{% endblock %}
+
+{% block subpage_content %}
+<form action='.' method="POST">
+  {% csrf_token %}
+  {{board_form|bootstrap }}
+  <a href="{% url 'board' board.id %}" class='btn btn-default'>Cancel</button></a>
+  <button class='btn btn-success' type='submit'>Update</button>
+</form>
+
+{% endblock %}

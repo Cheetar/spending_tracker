@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -63,10 +64,14 @@ def create_board(request):
     if request.method == "POST":
         board_form = BoardForm(request.POST)
         if board_form.is_valid():
-            # New speding object is created but not saved into database
+            # New board object is created but not saved into database
             new_board = board_form.save(commit=False)
             new_board.owner = Profile.objects.all().get(user=request.user)
-            new_board.save()
+            try:
+                new_board.save()
+            except IntegrityError:
+                board_form.add_error('name', 'Name already exist')
+                return render(request, 'analyser/create_board.html', {'board_form': board_form})
             return redirect('dashboard')
 
     board_form = BoardForm()
@@ -83,3 +88,17 @@ def export(request, id):
 @login_required
 def analytics(request, id):
     return render(request, 'analyser/analytics.html')
+
+
+@login_required
+def board_settings(request, id):
+    board = get_object_or_404(Board, id=id)
+    if request.method == "POST":
+        board_form = BoardForm(request.POST, instance=board)
+        if board_form.is_valid():
+            # New board object is created but not saved into database
+            board_form.save()
+            return redirect('board', board.id)
+
+    board_form = BoardForm()
+    return render(request, 'analyser/board_settings.html', {'board': board, 'board_form': board_form})

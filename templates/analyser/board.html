@@ -2,6 +2,8 @@
 {% load static %}
 {% load bootstrap %}
 
+{% block title %}{{board.name}}{% endblock %}
+
 {% block content %}
 <div class="container-fluid">
   <div class="row">
@@ -9,7 +11,7 @@
       <ul class="nav nav-sidebar">
         <li class="active"><a href="{% url 'board' board.id %}"><span class="glyphicon glyphicon-home"></span> Overview <span class="sr-only">(current)</span></a></li>
         <li><a href="{% url 'analytics' board.id %}"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+        <li><a href="{% url 'board_settings' board.id %}"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
       </ul>
       <ul class="nav nav-sidebar">
         <li><a href="#" data-toggle="modal" data-target="#spendingModal"><span class="glyphicon glyphicon-plus"></span> <b>Add spending</b></a></li>
