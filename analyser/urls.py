@@ -2,6 +2,8 @@ from django.urls import path
 
 from . import views
 
+handler404 = 'tracker.views.handler404'
+
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('board/<int:id>/', views.board, name='board'),
