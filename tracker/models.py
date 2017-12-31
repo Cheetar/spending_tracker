@@ -4,12 +4,20 @@ from django.db import models
 from djmoney.models.fields import MoneyField
 
 CATEGORIES = (('Home', 'Home'),
-              ('Groceries', 'Groceries'),
+              ('Bills', 'Bills'),
+              ('Taxes', 'Taxes'),
+              ('Clothes', 'Clothes'),
+              ('Shopping', 'Shopping'),
+              ('Holidays', 'Holidays'),
+              ('Health', "Health"),
+              ('Sports', 'Sports'),
               ('Food', 'Food'),
               ('Gifts', 'Gifts'),
               ('Kids', 'Kids'),
               ('Fuel', 'Fuel'),
               ('Transport', 'Transport'),
+              ('Entertainment', 'Entertainment'),
+              ('Going out', 'Going out'),
               ('Eating out', 'Eating out'),
               ('Other', 'Other'),
               # Income CATEGORIES
