@@ -8,7 +8,7 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li class="active"><a href="{% url 'board' board.id %}"><span class="glyphicon glyphicon-home"></span> Overview <span class="sr-only">(current)</span></a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
+        <li><a href="{% url 'analytics' board.id %}"><span class="glyphicon glyphicon-stats"></span> Analytics</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
       </ul>
       <ul class="nav nav-sidebar">

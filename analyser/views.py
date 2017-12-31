@@ -78,3 +78,8 @@ def export(request, id):
     board = get_object_or_404(Board, id=id)
     path = export_spendings_to_excel(board)
     return download(path)
+
+
+@login_required
+def analytics(request, id):
+    return render(request, 'analyser/analytics.html')
