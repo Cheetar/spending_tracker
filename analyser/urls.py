@@ -11,4 +11,5 @@ urlpatterns = [
     path('board/analytics/<int:id>/', views.analytics, name='analytics'),
     path('board/settings/<int:id>/', views.board_settings, name='board_settings'),
     path('board/create/', views.create_board, name='create_board'),
+    path('board/<int:board_id>/delete-spending/<int:spending_id>', views.delete_spending, name='delete_spending'),
 ]

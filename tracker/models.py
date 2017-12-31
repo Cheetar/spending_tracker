@@ -63,6 +63,7 @@ class Board(models.Model):
 
 
 class Spending(models.Model):
+    id = models.AutoField(primary_key=True)
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     category = models.CharField(max_length=50, choices=CATEGORIES)
     name = models.CharField(max_length=150, blank=True)

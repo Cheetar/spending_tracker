@@ -58,6 +58,7 @@
               <th>Cost</th>
               <th>Category</th>
               <th>Date</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -67,6 +68,7 @@
                 <td>{{spending.cost}}</td>
                 <td>{{spending.category}}</td>
                 <td>{{spending.date}}</td>
+                <td><a href="{% url 'delete_spending' board.id spending.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
               </tr>
             {% endfor %}
           </tbody>

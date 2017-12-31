@@ -6,7 +6,7 @@ from django.db import IntegrityError
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from tracker.models import Board, Profile
+from tracker.models import Board, Profile, Spending
 
 from .export import export_spendings_to_excel
 from .forms import BoardForm, SpendingForm
@@ -108,3 +108,18 @@ def board_settings(request, id):
     else:
         board_form = BoardForm()
     return render(request, 'analyser/board_settings.html', {'board': board, 'board_form': board_form})
+
+
+@login_required
+def delete_spending(request, board_id, spending_id):
+    board = get_object_or_404(Board, id=board_id)
+    spending = get_object_or_404(Spending, id=spending_id)
+    if spending.board != board:
+        return redirect('board', board_id)
+
+    profile = Profile.objects.get(user=request.user)
+    if board.owner != profile:
+        return redirect('dashboard')
+
+    spending.delete()
+    return redirect('board', board_id)
