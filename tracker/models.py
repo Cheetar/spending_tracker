@@ -31,7 +31,7 @@ class Profile(models.Model):
 
 class Board(models.Model):
     id = models.AutoField(primary_key=True)
-    owner = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, default="Main board")
     datetime_created = models.DateTimeField(auto_now_add=True)
     # add currency field
@@ -55,7 +55,7 @@ class Board(models.Model):
 
 
 class Spending(models.Model):
-    board = models.ForeignKey(Board, on_delete=models.PROTECT)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
     category = models.CharField(max_length=50, choices=CATEGORIES)
     name = models.CharField(max_length=150)
     cost = MoneyField(decimal_places=2, default_currency='PLN', max_digits=11)

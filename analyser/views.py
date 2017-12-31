@@ -87,7 +87,8 @@ def export(request, id):
 
 @login_required
 def analytics(request, id):
-    return render(request, 'analyser/analytics.html')
+    board = get_object_or_404(Board, id=id)
+    return render(request, 'analyser/analytics.html', {'board': board})
 
 
 @login_required
