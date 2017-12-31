@@ -57,7 +57,7 @@ class Board(models.Model):
 class Spending(models.Model):
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     category = models.CharField(max_length=50, choices=CATEGORIES)
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, blank=True)
     cost = MoneyField(decimal_places=2, default_currency='PLN', max_digits=11)
     date = models.DateField(auto_now_add=True)
     is_income = models.BooleanField(default=False)

@@ -46,6 +46,8 @@ def board(request, id):
             # New speding object is created but not saved into database
             new_spending = spending_form.save(commit=False)
             new_spending.board = board
+            if new_spending.name == '':
+                new_spending.name = new_spending.category
             new_spending.save()
             return render(request, 'analyser/board.html', {'spendings': spendings,
                                                            'board': board,
