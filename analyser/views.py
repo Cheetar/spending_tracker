@@ -52,7 +52,8 @@ def board(request, id):
                                                            'spending_form': spending_form,
                                                            'board_form': board_form})
 
-    spending_form = SpendingForm()
+    else:
+        spending_form = SpendingForm()
     return render(request, 'analyser/board.html', {'spendings': spendings,
                                                    'board': board,
                                                    'spending_form': spending_form,
@@ -74,7 +75,8 @@ def create_board(request):
                 return render(request, 'analyser/create_board.html', {'board_form': board_form})
             return redirect('dashboard')
 
-    board_form = BoardForm()
+    else:
+        board_form = BoardForm()
     return render(request, 'analyser/create_board.html', {'board_form': board_form})
 
 
@@ -101,5 +103,6 @@ def board_settings(request, id):
             board_form.save()
             return redirect('board', board.id)
 
-    board_form = BoardForm()
+    else:
+        board_form = BoardForm()
     return render(request, 'analyser/board_settings.html', {'board': board, 'board_form': board_form})
