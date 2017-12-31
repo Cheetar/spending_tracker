@@ -34,7 +34,7 @@ def dashboard(request):
 def board(request, id):
     board = get_object_or_404(Board, id=id)
     profile = Profile.objects.get(user=request.user)
-    if profile is not board.owner:
+    if profile != board.owner:
         return redirect('dashboard')
 
     spendings = board.spendings
