@@ -106,8 +106,19 @@ def board_settings(request, id):
             return redirect('board', board.id)
 
     else:
-        board_form = BoardForm()
+        board_form = BoardForm(instance=board)
     return render(request, 'analyser/board_settings.html', {'board': board, 'board_form': board_form})
+
+
+@login_required
+def delete_board(request, board_id):
+    board = get_object_or_404(Board, id=board_id)
+    profile = Profile.objects.get(user=request.user)
+    if board.owner != profile:
+        return redirect('dashboard')
+
+    board.delete()
+    return redirect('dashboard')
 
 
 @login_required
