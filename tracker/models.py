@@ -66,4 +66,4 @@ class Spending(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
