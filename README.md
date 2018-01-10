@@ -23,4 +23,4 @@ Django-based web application for tracking, managing and analysing your expenses
 
 ### Screenshots
 
-![Dashboard](https://raw.githubusercontent.com/Cheetar/killer_game/master/scr_dashboard.png)
+![Dashboard](https://github.com/Cheetar/spending_tracker/blob/master/src_dashboard.png)
