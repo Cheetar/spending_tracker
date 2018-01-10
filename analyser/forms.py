@@ -1,9 +1,11 @@
 from django import forms
+from django.utils import timezone
 
 from tracker.models import Board, Spending
 
 
 class SpendingForm(forms.ModelForm):
+    date = forms.DateField(widget=forms.SelectDateWidget(), initial=timezone.now())
 
     class Meta:
         model = Spending

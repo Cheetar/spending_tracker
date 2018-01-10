@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.db import models
 
@@ -68,7 +70,7 @@ class Spending(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORIES)
     name = models.CharField(max_length=150, blank=True)
     cost = MoneyField(decimal_places=2, default_currency='USD', max_digits=11)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=datetime.date.today)
     is_income = models.BooleanField(default=False)
 
     def __str__(self):
