@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .forms import UserRegistrationForm
-from .models import Board, Profile
+from .models import Profile
 
 
 @login_required
@@ -21,11 +21,9 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
 
-            # Create profile object and default Board
+            # Create profile object
             profile = Profile(user=new_user)
             profile.save()
-            board = Board(owner=profile)
-            board.save()
 
             # log in user
             login(request, new_user)
