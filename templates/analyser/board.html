@@ -65,7 +65,7 @@
             {% for spending in spendings %}
               <tr {% if spending.is_income %} class="success" {% endif %} >
                 <td>{{spending.name}}</td>
-                <td>{{spending.cost}}</td>
+                <td>{{spending.cost|floatformat:2}} {{board.currency}}</td>
                 <td>{{spending.category}}</td>
                 <td>{{spending.date}}</td>
                 <td><a href="{% url 'delete_spending' board.id spending.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>

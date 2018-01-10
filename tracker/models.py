@@ -3,8 +3,6 @@ import datetime
 from django.conf import settings
 from django.db import models
 
-from djmoney.models.fields import MoneyField
-
 CATEGORIES = (('Home', 'Home'),
               ('Bills', 'Bills'),
               ('Taxes', 'Taxes'),
@@ -44,7 +42,7 @@ class Board(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, default="Main board")
     datetime_created = models.DateTimeField(auto_now_add=True)
-    # add currency field
+    currency = models.CharField(default='USD', max_length=30)
 
     @classmethod
     def create(profile):
@@ -69,7 +67,7 @@ class Spending(models.Model):
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     category = models.CharField(max_length=50, choices=CATEGORIES)
     name = models.CharField(max_length=150, blank=True)
-    cost = MoneyField(decimal_places=2, default_currency='USD', max_digits=11)
+    cost = models.DecimalField(decimal_places=2, max_digits=11)
     date = models.DateField(default=datetime.date.today)
     is_income = models.BooleanField(default=False)
 
