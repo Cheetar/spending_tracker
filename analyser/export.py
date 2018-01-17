@@ -25,7 +25,7 @@ def export_spendings_to_excel(board):
     for i in range(len(spendings)):
         spending = spendings[i]
         ws.write(i + 1, 0, str(spending.name), styles[int(spending.is_income)])
-        ws.write(i + 1, 1, str(spending.cost), styles[int(spending.is_income)])
+        ws.write(i + 1, 1, str(spending.cost) + board.currency, styles[int(spending.is_income)])
         ws.write(i + 1, 2, str(spending.category), styles[int(spending.is_income)])
         ws.write(i + 1, 3, str(spending.date), styles[int(spending.is_income)])
 
