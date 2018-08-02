@@ -10,7 +10,7 @@ services:
         POSTGRES_DB: "spendalizer"
     volumes:
       - /var/lib/spendalizer/postgresql/data:/var/lib/postgresql/data
-  spendalizer:
+  web:
     build: ./
     environment:
       STATIC_ROOT: '/code/static/'
