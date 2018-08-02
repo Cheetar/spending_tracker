@@ -13,8 +13,25 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 from ast import literal_eval
 
-from decouple import config
 from django.urls import reverse_lazy
+
+import raven
+from decouple import config
+
+# Sentry config
+
+try:
+    RAVEN_GIT_SHA = raven.fetch_git_sha(os.path.dirname(os.path.dirname(__file__)))
+except raven.exceptions.InvalidGitRepository:
+    RAVEN_GIT_SHA = None
+
+RAVEN_CONFIG = {
+    'dsn': config('RAVEN_DSN', default=''),
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': RAVEN_GIT_SHA,
+}
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,6 +61,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'tracker',
     'analyser',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
