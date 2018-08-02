@@ -4,3 +4,4 @@ venv/
 .env
 media/exports/*
 /images
+static/

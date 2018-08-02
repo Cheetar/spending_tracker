@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+        POSTGRES_USER: "spendalizer"
+        POSTGRES_PASSWORD: "spendalizer"
+        POSTGRES_DB: "spendalizer"
+    volumes:
+      - /var/lib/spendalizer/postgresql/data:/var/lib/postgresql/data
+  spendalizer:
+    build: ./
+    environment:
+      STATIC_ROOT: '/code/static/'
+      MEDIA_ROOT: '/code/media/'
+      ALLOWED_HOSTS: "*"
+      DATABASES: "{'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2', 'NAME': 'spendalizer', 'USER': 'spendalizer', 'PASSWORD': 'spendalizer', 'HOST': 'db', 'PORT': '',}}"
+      SITE_NAME_HUMAN: "Spendalizer"
+    command: bash -c "sleep 5 && cd /code/ && python3 manage.py makemigrations --merge && python3 manage.py migrate && python3 manage.py collectstatic --noinput && gunicorn spending_tracker.wsgi -b unix:/code/spending_tracker.sock --workers 3"
+    volumes:
+      - ./:/code
+    depends_on:
+      - db
+    restart: always
