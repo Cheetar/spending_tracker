@@ -32,6 +32,8 @@ RAVEN_CONFIG = {
     'release': RAVEN_GIT_SHA,
 }
 
+GOOGLE_ANALYTICS_TRACKING_CODE = config('GOOGLE_ANALYTICS_TRACKING_CODE',
+                                        default='')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -89,6 +91,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'tracker.context_processors.google_analytics',
             ],
         },
     },
